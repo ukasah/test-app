@@ -7,9 +7,12 @@ const component = require('../controller/component');
 
 router.get('/', (req, res) => {
     return res.status(200).json({
-        message: 'HOMEPAGE'
-    });
-}); // get all channel
+        status: true,
+        message: "Welcome to Factory App API | DEV",
+        data: null
+    })
+});
+
 
 //ENDPOINT PRODUCT
 router.get('/getproducts', product.index); // get all products
