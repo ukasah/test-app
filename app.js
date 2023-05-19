@@ -1,29 +1,28 @@
-const express = require('express')
-const app = express()
-const port = 8000
-
+require('dotenv').config();
+const express = require('express');
+const app = express();
 const morgan = require('morgan');
-app.use(morgan('dev'));
-app.use(express.json());
-
 const router = require('./routes');
+const cors = require('cors');
+
+const {
+    HTTP_PORT = 3000
+} = process.env;
+
+app.use(cors());
+app.use(express.json());
+app.use(morgan('dev'));
+
 app.use(router);
-
-
-// 404 
-app.use((req, res, next) => {
-    return res.status(404).json({
-        message: "404 Not Found!"
-    });
-});
 
 // 500
 app.use((err, req, res, next) => {
+    console.log(err);
     return res.status(500).json({
-        message: err.message
+        status: false,
+        message: err.message,
+        data: null
     });
 });
 
-app.listen(port, () => {
-  console.log(`Example app listening on port ${port}`)
-})
+module.exports = app;

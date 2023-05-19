@@ -47,7 +47,7 @@ Content-Type: application/json
 
 {
     "name": "Listrik Supplier",
-    "address": "No. 9 Jl. Pondok Gede "
+    "address": "No. 9 Jl. Pondok Gede"
 }
 
 ### Update suppliers data

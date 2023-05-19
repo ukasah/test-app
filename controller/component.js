@@ -42,15 +42,22 @@ module.exports = {
     store: async (req, res, next) => {
         try {
             const {name, description} = req.body;
+            if (!name || !description) {
+                return res.status(400).json({
+                    status: false,
+                    message: 'name or description is required!',
+                    data: null
+                }); 
+            };
 
             const component = await Components.create({
                 name: name,
                 description: description
             });
 
-            return res.status(201).json({
+            return res.status(200).json({
                 status: true,
-                message: 'success',
+                message: 'Create Component Success!',
                 data: component
             });
         } catch (error) {
@@ -74,7 +81,7 @@ module.exports = {
 
             return res.status(201).json({
                 status: true,
-                message: 'success',
+                message: 'Component has been Updated!',
                 data: null
             });
         } catch (error) {

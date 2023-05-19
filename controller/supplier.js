@@ -42,15 +42,22 @@ module.exports = {
     store: async (req, res, next) => {
         try {
             const {name, address} = req.body;
+            if (!name || !address) {
+                return res.status(400).json({
+                    status: false,
+                    message: 'name or address is required!',
+                    data: null
+                }); 
+            };
 
             const supplier = await Suppliers.create({
                 name: name,
                 address : address
             });
 
-            return res.status(201).json({
+            return res.status(200).json({
                 status: true,
-                message: 'success',
+                message: 'Create Supplier Success!',
                 data: supplier
             });
         } catch (error) {
@@ -74,7 +81,7 @@ module.exports = {
 
             return res.status(201).json({
                 status: true,
-                message: 'success',
+                message: 'Supplier has been updated!',
                 data: null
             });
         } catch (error) {
@@ -98,7 +105,7 @@ module.exports = {
 
             return res.status(200).json({
                 status: true,
-                message: 'success',
+                message: 'Supplier has been removed!',
                 data: null
             });
         } catch (error) {

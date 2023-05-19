@@ -7,7 +7,7 @@ module.exports = {
 
             return res.status(200).json({
                 status: true,
-                message: 'success',
+                message: 'Get All Product!',
                 data: products
             });
         } catch (err) {
@@ -43,14 +43,22 @@ module.exports = {
         try {
             const {name, description} = req.body;
 
+            if (!name || !description) {
+                return res.status(400).json({
+                    status: false,
+                    message: 'name or description is required!',
+                    data: null
+                }); 
+            };
+
             const product = await Product.create({
                 name: name,
                 description: description
             });
 
-            return res.status(201).json({
+            return res.status(200).json({
                 status: true,
-                message: 'success',
+                message: 'Create Product Success!',
                 data: product
             });
         } catch (error) {
@@ -67,14 +75,14 @@ module.exports = {
             if (updated[0] == 0) {
                 return res.status(404).json({
                     status: false,
-                    message: `can't find product with id ${id}!`,
+                    message: `cant find product with id ${id}!`,
                     data: null
                 });
             }
 
-            return res.status(201).json({
+            return res.status(200).json({
                 status: true,
-                message: 'success',
+                message: 'Product was Updated!',
                 data: null
             });
         } catch (error) {
@@ -98,7 +106,7 @@ module.exports = {
 
             return res.status(200).json({
                 status: true,
-                message: 'success',
+                message: 'Product has been removed!',
                 data: null
             });
         } catch (error) {
